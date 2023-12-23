@@ -35,3 +35,5 @@ private:
     int *ftop = new int[g_bufsize];
     BCB **ptof = new BCB *[g_bufsize];
 };
+
+extern BMgr g_BMgr;
