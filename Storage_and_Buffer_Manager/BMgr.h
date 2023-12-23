@@ -32,6 +32,6 @@ public:
 private:
     // Hash Table
     // use dynamic array to fit to the buffer size that the user defined by the input parameter
-    int *ftop = new int[bufsize];
-    BCB **ptof = new BCB *[bufsize];
+    int *ftop = new int[g_bufsize];
+    BCB **ptof = new BCB *[g_bufsize];
 };

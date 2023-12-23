@@ -9,16 +9,16 @@ using std::atoi;
 
 int main(int argc, char* argv[]) {
 
-    // create buf
+    // create buffer
     if (argc > 1) {
-        bufsize = atoi(argv[1]);
+        g_bufsize = atoi(argv[1]);
     }
     else {
-        bufsize = DEFBUFSIZE;
+        g_bufsize = DEFBUFSIZE;
     }
-    buf = new bFrame[bufsize];
+    g_buf = new bFrame[g_bufsize];
 
-    //cout << bufsize;
+    //cout << g_bufsize;
 
-    delete [] buf;
+    delete [] g_buf;
 }

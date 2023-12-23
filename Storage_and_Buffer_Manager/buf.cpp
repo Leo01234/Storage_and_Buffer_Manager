@@ -1,6 +1,6 @@
 #include "buf.h"
 
-int bufsize;
+int g_bufsize;
 
 
-bFrame *buf;
+bFrame *g_buf;
