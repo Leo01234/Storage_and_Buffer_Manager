@@ -4,5 +4,5 @@
 using Char = unsigned char;
 struct bFrame
 {
-    Char field[FRAMESIZE] = { 0 };
+    Char field[FRAMESIZE] = {0};
 };

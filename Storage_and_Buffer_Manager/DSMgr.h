@@ -22,7 +22,7 @@ public:
     void SetUse(int index, int use_bit);
     int GetUse(int index);
 private:
-    FILE *currFile;
-    int numPages;
-    int pages[MAXPAGES];
+    FILE *currFile = nullptr;
+    int numPages = 0;
+    int pages[MAXPAGES] = {0};
 };
