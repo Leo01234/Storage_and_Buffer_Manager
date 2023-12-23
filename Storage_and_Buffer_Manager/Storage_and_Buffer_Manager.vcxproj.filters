@@ -21,12 +21,30 @@
     <ClCompile Include="buf.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="BCB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DSMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="bFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="buf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BCB.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DSMgr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BMgr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -129,12 +129,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BCB.cpp" />
+    <ClCompile Include="BMgr.cpp" />
     <ClCompile Include="buf.cpp" />
+    <ClCompile Include="DSMgr.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BCB.h" />
     <ClInclude Include="bFrame.h" />
+    <ClInclude Include="BMgr.h" />
     <ClInclude Include="buf.h" />
+    <ClInclude Include="DSMgr.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
