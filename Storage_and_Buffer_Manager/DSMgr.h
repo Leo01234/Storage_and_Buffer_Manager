@@ -14,7 +14,7 @@ public:
     int OpenFile(string filename);
     int CloseFile();
     bFrame ReadPage(int page_id);
-    // I think the first argument here should be page_id instead of frame_id
+    // I think the first parameter here should be page_id instead of frame_id
     //int WritePage(int frame_id, bFrame frm);
     int WritePage(int page_id, bFrame frm);
     int Seek(int offset, int pos);

@@ -5,7 +5,7 @@ BMgr::~BMgr() {
     delete [] ptof;
     delete [] ftop;
 }
-int BMgr::FixPage(int page_id, int prot) {
+int BMgr::FixPage(int page_id) {
 
 }
 NewPage BMgr::FixNewPage() {
