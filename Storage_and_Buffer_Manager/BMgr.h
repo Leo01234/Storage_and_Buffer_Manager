@@ -28,14 +28,25 @@ public:
     int NumFreeFrames();
 
     // Internal Functions
+
+    // the function is called only when the buffer is full
     int SelectVictim();
     int Hash(int page_id);
     void RemoveBCB(BCB *ptr, int page_id);
+    // the function is called when
+    // a dirty frame needs to be written back to disk
     void RemoveLRUEle(int frid);
     void SetDirty(int frame_id);
     void UnsetDirty(int frame_id);
     void WriteDirtys();
     void PrintFrame(int frame_id);
+
+    // operation on LRU linked list
+
+    // only reassign pointers, do not delete BCB
+    // should only be called when there is more than one BCB in LRU list
+    void RemoveFromLRUList(BCB *ptr);
+    void AddToMRU(BCB *ptr);
 
 private:
     // Hash Table
@@ -46,6 +57,8 @@ private:
     // LRU linked list
     BCB *MRU = nullptr;
     BCB *LRU = nullptr;
+
+    int min_free_frame_id = 0;
 };
 
 extern BMgr g_BMgr;

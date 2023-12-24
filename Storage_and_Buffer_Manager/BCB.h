@@ -2,7 +2,7 @@
 
 struct BCB
 {
-    BCB(int page_id, int frame_id, int dirty, BCB *LRU_prev);
+    BCB(int page_id, int frame_id, int dirty);
     int page_id;
     int frame_id;
     int count = 1;
@@ -11,5 +11,5 @@ struct BCB
 
     // pointers for the LRU list
     BCB *LRU_next = nullptr;
-    BCB *LRU_prev;
+    BCB *LRU_prev = nullptr;
 };
