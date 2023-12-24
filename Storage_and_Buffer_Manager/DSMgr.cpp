@@ -3,6 +3,7 @@
 #include <cstdlib>
 #include <iostream>
 #include "DSMgr.h"
+#include "iocount.h"
 
 using std::cout;
 using std::endl;
@@ -24,6 +25,9 @@ int DSMgr::CloseFile() {
     return fclose(currFile);
 }
 bFrame DSMgr::ReadPage(int page_id) {
+    // io count
+    g_iocount++;
+
     if (Seek(FRAMESIZE * page_id, SEEK_SET)) {
         cout << "seek fail" << endl;
         exit(EXIT_FAILURE);
@@ -36,6 +40,9 @@ bFrame DSMgr::ReadPage(int page_id) {
     return frm;
 }
 int DSMgr::WritePage(int page_id, bFrame frm) {
+    // io count
+    g_iocount++;
+
     if (Seek(FRAMESIZE * page_id, SEEK_SET)) {
         cout << "seek fail" << endl;
         exit(EXIT_FAILURE);

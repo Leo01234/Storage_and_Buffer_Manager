@@ -133,6 +133,7 @@
     <ClCompile Include="BMgr.cpp" />
     <ClCompile Include="buf.cpp" />
     <ClCompile Include="DSMgr.cpp" />
+    <ClCompile Include="iocount.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,6 +142,7 @@
     <ClInclude Include="BMgr.h" />
     <ClInclude Include="buf.h" />
     <ClInclude Include="DSMgr.h" />
+    <ClInclude Include="iocount.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
