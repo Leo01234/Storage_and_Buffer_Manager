@@ -37,7 +37,7 @@ int main(int argc, char* argv[]) {
     // if not, create one with given pages and exit
     if (!exists(DBF_NAME)) {
 
-        cout << "database file do not exist, generating..." << endl;
+        cout << "database file does not exist, generating..." << endl;
 
         // create empty file
         FILE *db_file = fopen(DBF_NAME, "wb");
