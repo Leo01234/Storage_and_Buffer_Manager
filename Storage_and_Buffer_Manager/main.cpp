@@ -25,6 +25,9 @@ int main(int argc, char* argv[]) {
     else {
         g_bufsize = DEFBUFSIZE;
     }
+    // display current bufsize
+    cout << "buffer size: " << g_bufsize << endl;
+
     // create buffer
     g_buf = new bFrame[g_bufsize];
     // initialize after g_bufsize is determined

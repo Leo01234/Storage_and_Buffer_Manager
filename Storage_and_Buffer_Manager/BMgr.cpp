@@ -192,7 +192,11 @@ void BMgr::PrintFrame(int frame_id) {
     cout << endl;
 }
 void BMgr::RemoveFromLRUList(BCB* ptr) {
-    if (LRU == ptr) {
+    if (LRU == ptr && MRU == ptr) { // there is only one element in the list
+        LRU = nullptr;
+        MRU = nullptr;
+    }
+    else if (LRU == ptr) {
         ptr->LRU_next->LRU_prev = nullptr;
         LRU = ptr->LRU_next;
     }

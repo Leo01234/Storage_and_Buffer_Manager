@@ -43,7 +43,7 @@ public:
     // operation on LRU linked list
 
     // only reassign pointers, do not delete BCB
-    // should only be called when there is more than one BCB in LRU list
+    // should only be called when there is at least one BCB in LRU list
     void RemoveFromLRUList(BCB *ptr);
     void AddToMRU(BCB *ptr);
 
