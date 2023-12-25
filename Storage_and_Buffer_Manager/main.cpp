@@ -5,6 +5,7 @@
 #include "buf.h"
 #include "DSMgr.h"
 #include "BMgr.h"
+#include "iocount.h"
 
 #define DBF_NAME "data.dbf"
 #define TRACE_FILE "data-5w-50w-zipf.txt"
@@ -33,17 +34,18 @@ int main(int argc, char* argv[]) {
     // if not, create one with given pages and exit
     if (!exists(DBF_NAME)) {
 
+        cout << "database file do not exist, generating..." << endl;
+
         // create empty file
-        FILE *file = fopen(DBF_NAME, "wb");
-        if (file == nullptr) {
+        FILE *db_file = fopen(DBF_NAME, "wb");
+        if (db_file == nullptr) {
             cout << "create file fail" << endl;
             exit(EXIT_FAILURE);
         }
-        else {
-            if (fclose(file)) {
-                cout << "close file fail" << endl;
-                exit(EXIT_FAILURE);
-            }
+
+        if (fclose(db_file)) {
+            cout << "close file fail" << endl;
+            exit(EXIT_FAILURE);
         }
         
         // materialize the file
@@ -71,9 +73,55 @@ int main(int argc, char* argv[]) {
             exit(EXIT_FAILURE);
         }
 
-        cout << "database file materialized" << endl;
+        cout << "database file materialized, please run again to begin the lab" << endl;
         exit(EXIT_SUCCESS);
 
+    }
+
+    // database file should already be materialized here
+
+    // open trace file for reading
+    FILE *trace_file = fopen(TRACE_FILE, "r");
+    if (trace_file == nullptr) {
+        cout << "open file fail" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // deal with trace file
+    int is_write;
+    char s_page_num[6];
+    while (fscanf(trace_file, "%1d,%5s", &is_write, s_page_num) != EOF) { // not reach the end of file
+        int page_num = atoi(s_page_num);
+
+        if (!is_write) { // read
+            g_BMgr.FixPage(page_num - 1); // page_id starts at 0
+
+            // here is some data reading things...
+
+            if (g_BMgr.UnfixPage(page_num - 1) < 0) {
+                cout << "page not found in buffer" << endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+        else { // write
+            int frame_id = g_BMgr.FixPage(page_num - 1); // page_id starts at 0
+
+            g_BMgr.SetDirty(frame_id);
+            // here is some data writing things...
+
+            if (g_BMgr.UnfixPage(page_num - 1) < 0) {
+                cout << "page not found in buffer" << endl;
+                exit(EXIT_FAILURE);
+            }
+        }
+    }
+
+    // output io count
+    cout << "total I/Os between memory and disk: " << g_iocount << endl;
+
+    if (fclose(trace_file)) {
+        cout << "close file fail" << endl;
+        exit(EXIT_FAILURE);
     }
 
     // free space
