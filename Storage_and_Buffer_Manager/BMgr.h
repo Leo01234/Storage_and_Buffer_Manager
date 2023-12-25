@@ -15,7 +15,6 @@ class BMgr
 {
 public:
     BMgr();
-    ~BMgr();
 
     // Interface functions
 
@@ -48,11 +47,16 @@ public:
     void RemoveFromLRUList(BCB *ptr);
     void AddToMRU(BCB *ptr);
 
+    // ftop and ptof can only be initialized after g_bufsize is determined
+    // so we need to manually init it
+    void InitDynamicArrays();
+    void DestoryDynamicArrays();
+
 private:
     // Hash Table
     // use dynamic array to fit to the buffer size that the user defined by the input parameter
-    int *ftop = new int[g_bufsize]; // do not need to initialize to 0
-    BCB **ptof = new BCB *[g_bufsize](); // initialize to nullptr
+    int *ftop = nullptr;
+    BCB **ptof = nullptr;
 
     // LRU linked list
     BCB *MRU = nullptr;

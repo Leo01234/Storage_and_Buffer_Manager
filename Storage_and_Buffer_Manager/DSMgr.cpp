@@ -11,7 +11,7 @@ using std::exit;
 
 DSMgr::DSMgr() = default;
 int DSMgr::OpenFile(string filename) {
-    currFile = fopen(filename.c_str(), "br+");
+    currFile = fopen(filename.c_str(), "rb+");
     if (currFile == nullptr) {
         // on error
         return errno;
@@ -50,6 +50,7 @@ int DSMgr::WritePage(int page_id, bFrame frm) {
     return fwrite(frm.field, sizeof(Char), FRAMESIZE, currFile);
 }
 int DSMgr::Seek(int offset, int pos) {
+    //cout << "seek to " << offset << endl;
     return fseek(currFile, offset, pos);
 }
 FILE* DSMgr::GetFile() {

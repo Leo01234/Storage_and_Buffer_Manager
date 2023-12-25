@@ -8,20 +8,6 @@ using std::endl;
 using std::exit;
 
 BMgr::BMgr() = default;
-BMgr::~BMgr() {
-    // free all BCBs
-    for (int i = 0; i < g_bufsize; i++) {
-        BCB *p = ptof[i];
-        while (p != nullptr) {
-            BCB *q = p;
-            p = p->next;
-            delete q;
-        }
-    }
-
-    delete [] ptof;
-    delete [] ftop;
-}
 int BMgr::FixPage(int page_id) {
     BCB *p = ptof[Hash(page_id)];
     while (p != nullptr) {
@@ -86,6 +72,8 @@ NewPage BMgr::FixNewPage() {
 
     // then do things the same as FixPage
     // without checking the buffer for the page
+    // and without reading in the page
+    // BCB dirty should be initialized to 1
 
     int frame_id;
     if (min_free_frame_id < g_bufsize) { // has free frame
@@ -96,10 +84,7 @@ NewPage BMgr::FixNewPage() {
         frame_id = SelectVictim();
     }
 
-    // read in the page
-    g_buf[frame_id] = g_DSMgr.ReadPage(page_id);
-
-    BCB *new_BCB = new BCB(page_id, frame_id, 0);
+    BCB *new_BCB = new BCB(page_id, frame_id, 1);
 
     // update ftop
     ftop[frame_id] = page_id;
@@ -233,6 +218,24 @@ void BMgr::AddToMRU(BCB* ptr) {
         ptr->LRU_next = nullptr;
         MRU = ptr;
     }
+}
+void BMgr::InitDynamicArrays() {
+    ftop = new int[g_bufsize]; // do not need to initialize to 0
+    ptof = new BCB *[g_bufsize](); // initialize to nullptr
+}
+void BMgr::DestoryDynamicArrays() {
+    // free all BCBs
+    for (int i = 0; i < g_bufsize; i++) {
+        BCB *p = ptof[i];
+        while (p != nullptr) {
+            BCB *q = p;
+            p = p->next;
+            delete q;
+        }
+    }
+
+    delete [] ptof;
+    delete [] ftop;
 }
 
 BMgr g_BMgr;
