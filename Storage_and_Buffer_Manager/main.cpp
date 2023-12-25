@@ -80,9 +80,17 @@ int main(int argc, char* argv[]) {
 
     // database file should already be materialized here
 
-    // open trace file for reading
+    // ACTUAL LAB CONTENT STARTS HERE
+
+    // open trace file
     FILE *trace_file = fopen(TRACE_FILE, "r");
     if (trace_file == nullptr) {
+        cout << "open file fail" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // open database file
+    if (g_DSMgr.OpenFile(DBF_NAME)) {
         cout << "open file fail" << endl;
         exit(EXIT_FAILURE);
     }
@@ -116,13 +124,26 @@ int main(int argc, char* argv[]) {
         }
     }
 
-    // output io count
-    cout << "total I/Os between memory and disk: " << g_iocount << endl;
+    // prepare to close database
+    // write dirty frames back to disk
+    g_BMgr.WriteDirtys();
 
+    // close database file
+    if (g_DSMgr.CloseFile()) {
+        cout << "close file fail" << endl;
+        exit(EXIT_FAILURE);
+    }
+
+    // close trace file
     if (fclose(trace_file)) {
         cout << "close file fail" << endl;
         exit(EXIT_FAILURE);
     }
+
+    // output io count
+    cout << "total I/Os between memory and disk: " << g_iocount << endl;
+
+    // ACTUAL LAB CONTENT ENDS HERE
 
     // free space
 
